@@ -1,6 +1,8 @@
 package com.wgsystems.sf_loteamentos.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+
+import com.wgsystems.sf_loteamentos.enums.StatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,5 +31,7 @@ public class Loteamento implements Serializable {
 
     @OneToMany(mappedBy = "loteamento")
     private Set<Lote> lotes;
+
+    private StatusEnum status;
 
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/loteamento")
+@RequestMapping("/loteamentos")
 public class LoteamentoController {
 
 
@@ -27,14 +27,14 @@ public class LoteamentoController {
         return loteamentoService.listarLoteamentos();
     }
 
-//    @GetMapping(value = "/{cpf}")
-//    public ResponseEntity<ClienteDTO> buscarClientePorCpf(@PathVariable String cpf) {
-//        ClienteDTO cliente = clienteService.buscarClientePorCpf(cpf);
-//        if (Objects.nonNull(cliente)) {
-//            return ResponseEntity.ok().body(cliente);
-//        }
-//        return ResponseEntity.notFound().build();
-//    }
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<LoteamentoDTO> buscarLoteamentoPorId(@PathVariable String id) {
+        LoteamentoDTO cliente = loteamentoService.buscarLoteamentoPorId(id);
+        if (Objects.nonNull(cliente)) {
+            return ResponseEntity.ok().body(cliente);
+        }
+        return ResponseEntity.notFound().build();
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

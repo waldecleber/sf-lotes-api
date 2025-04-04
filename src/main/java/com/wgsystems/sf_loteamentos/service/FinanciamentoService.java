@@ -49,9 +49,9 @@ public class FinanciamentoService {
                 .orElseThrow(() -> new ClienteNaoEncontrado("Cliente não encontrado"));
 
         Lote lote = mapper.map(financiamentoDTO.getLote(), Lote.class);
-        Loteamento loteamento = loteamentoRepository.getById(lote.getLoteamento().getId());
+        Optional<Loteamento> loteamento = loteamentoRepository.findById(lote.getLoteamento().getId());
 
-        Optional<Lote> optional = loteRepository.buscarPorLote(financiamentoDTO.getLote().getNumero(), loteamento, cliente);
+        Optional<Lote> optional = loteRepository.buscarPorLote(financiamentoDTO.getLote().getNumero(), loteamento.get(), cliente);
         if (optional.isPresent()) {
             throw new ClienteDuplicadoException("Este CPF já possui um financiamento para este Lote.");
         }
@@ -66,7 +66,7 @@ public class FinanciamentoService {
 
         lote.setFinanciamento(financiamento);
         lote.setCliente(cliente);
-        lote.setLoteamento(loteamento);
+        lote.setLoteamento(loteamento.get());
 
         financiamentoRepository.save(financiamento);
 

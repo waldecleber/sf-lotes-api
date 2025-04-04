@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,9 @@ public class LoteamentoService {
 
     public LoteamentoDTO salvar(LoteamentoDTO dto) {
         Optional<Loteamento> optional = loteamentoRepository.findByNome(dto.getNome());
+        if (Objects.isNull(dto.getNome())) {
+            throw new ClienteDuplicadoException("Nome não pode estar em branco.");
+        }
         if (optional.isPresent()) {
             throw new ClienteDuplicadoException("Já existe um Loteamento com este Nome");
         }
@@ -36,7 +40,14 @@ public class LoteamentoService {
 
     public List<LoteamentoDTO> listarLoteamentos() {
         return loteamentoRepository.findAll().stream()
+                .filter(resp -> Objects.nonNull(resp.getNome()))
                 .map(loteamento -> mapper.map(loteamento, LoteamentoDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    public LoteamentoDTO buscarLoteamentoPorId(String id) {
+        return loteamentoRepository.findById(Long.valueOf(id))
+                .map(loteamento -> mapper.map(loteamento, LoteamentoDTO.class))
+                .orElseThrow(() -> new ClienteDuplicadoException("Não foi encontrado loteamento"));
     }
 }

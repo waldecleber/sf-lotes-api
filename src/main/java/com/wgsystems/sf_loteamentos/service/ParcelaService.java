@@ -2,9 +2,7 @@ package com.wgsystems.sf_loteamentos.service;
 
 import com.wgsystems.sf_loteamentos.dto.ClienteDTO;
 import com.wgsystems.sf_loteamentos.dto.ParcelaDTO;
-import com.wgsystems.sf_loteamentos.entity.Cliente;
-import com.wgsystems.sf_loteamentos.entity.Financiamento;
-import com.wgsystems.sf_loteamentos.entity.Parcela;
+import com.wgsystems.sf_loteamentos.entity.*;
 import com.wgsystems.sf_loteamentos.exceptions.ClienteNaoEncontrado;
 import com.wgsystems.sf_loteamentos.repository.ClienteRepository;
 import com.wgsystems.sf_loteamentos.repository.FinanciamentoRepository;
@@ -46,7 +44,15 @@ public class ParcelaService {
 
     public ParcelaDTO atualizar(Long id, ParcelaDTO parcelaDTO) {
         if (parcelaRepository.existsById(id)) {
+            Cliente cliente =  clienteRepository.findByCpf(parcelaDTO.getCliente().getCpf())
+                    .orElseThrow(() -> new ClienteNaoEncontrado("Cliente não encontrado"));
+
             Parcela parcela = mapper.map(parcelaDTO, Parcela.class);
+            Lote lote = mapper.map(parcelaDTO.getFinanciamento().getLote(), Lote.class);
+            parcela.setLote(lote);
+
+            Financiamento financiamento = mapper.map(parcelaDTO.getFinanciamento(), Financiamento.class);
+            financiamentoRepository.save(financiamento);
             return mapper.map(parcelaRepository.save(parcela), ParcelaDTO.class);
         } else {
             throw new ClienteNaoEncontrado("Cliente não encontrado");

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/financiamento")
+@RequestMapping("/financiamentos")
 public class FinanciamentoController {
 
     private final FinanciamentoService financiamentoService;

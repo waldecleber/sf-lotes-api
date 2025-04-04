@@ -1,6 +1,8 @@
 package com.wgsystems.sf_loteamentos.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+
+import com.wgsystems.sf_loteamentos.enums.StatusEnum;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -47,5 +49,6 @@ public class Financiamento {
     @OneToMany(mappedBy = "financiamento")
     private Set<Parcela> parcelas;
 
+    private StatusEnum status;
 
 }

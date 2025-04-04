@@ -1,6 +1,8 @@
 package com.wgsystems.sf_loteamentos.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+
+import com.wgsystems.sf_loteamentos.enums.StatusEnum;
 import lombok.*;
 
 import java.io.Serializable;
@@ -31,5 +33,7 @@ public class Lote implements Serializable {
 
     @OneToOne(mappedBy = "lote")
     private Financiamento financiamento;
+
+    private StatusEnum status;
 
 }

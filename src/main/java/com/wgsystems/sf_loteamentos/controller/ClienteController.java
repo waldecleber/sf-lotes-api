@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 public class ClienteController {
 
 

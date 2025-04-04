@@ -1,10 +1,10 @@
 package com.wgsystems.sf_loteamentos.entity;
 
-import jakarta.persistence.*;
+import com.wgsystems.sf_loteamentos.enums.StatusEnum;
 import lombok.*;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -32,4 +32,5 @@ public class Cliente implements Serializable {
     @OneToMany(mappedBy = "cliente")
     private Set<Lote> lotes;
 
+    private StatusEnum status;
 }

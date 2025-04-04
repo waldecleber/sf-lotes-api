@@ -1,6 +1,6 @@
 package com.wgsystems.sf_loteamentos.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
