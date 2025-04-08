@@ -1,9 +1,9 @@
 package com.wgsystems.sf_loteamentos.entity;
 
 import com.wgsystems.sf_loteamentos.enums.StatusEnum;
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 

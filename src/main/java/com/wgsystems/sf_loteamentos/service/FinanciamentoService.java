@@ -7,6 +7,7 @@ import com.wgsystems.sf_loteamentos.enums.StatusParcelaEnum;
 import com.wgsystems.sf_loteamentos.exceptions.ClienteDuplicadoException;
 import com.wgsystems.sf_loteamentos.exceptions.ClienteNaoEncontrado;
 import com.wgsystems.sf_loteamentos.repository.*;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,7 @@ public class FinanciamentoService {
         this.mapper = mapper;
     }
 
+    @Transactional
     public FinanciamentoDTO salvar(FinanciamentoDTO financiamentoDTO) {
 
         Cliente cliente = clienteRepository.findByCpf(financiamentoDTO.getCliente().getCpf())
